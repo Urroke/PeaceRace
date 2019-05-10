@@ -35,6 +35,30 @@ public class MapGenerator : MonoBehaviour
     private GameObject[,] terrain;
     private bool[,] isDry;
 
+    void getNeighbor(int x, int y, int stepLeft, int stepRight)
+    {
+        
+    }
+
+    void MakeRiver(int x, int y)
+    {
+        int x1 = x, x2 = x, x3;
+        int y1 = y, y2 = (y + 1)%height, y3;
+        int direct;
+        direct = Random.Range(0, 2);
+        if (direct == 0 || direct == 2)
+        {
+            x3 = (width + x - 1)%width;
+        }
+        do
+        {
+            direct = Random.Range(0, 2);
+            x1 = x;
+            x2 = x;
+            x1 = x;
+        } while (isDry[x1, y1] && isDry[x2, y2] && isDry[x3, y3]);
+    }
+
     void putGex(int x, int y, GameObject Gex)
     {
         Gex.transform.position = new Vector3(gexConst * ((x % width) + 0.5f * (y % 2)), 0.75f * (y % height));
