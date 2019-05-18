@@ -78,13 +78,14 @@ namespace Assets.Maps.Generation
             return climatBariers.Length - 1;
         }
 
-        private void distribute(int x, int y, int mountainHeight, float mountainWidthC)
+        private void distribute(int x, int y, float mountainHeight, float mountainWidthC)
         {
-            if (mountainHeight == 0)
-                return;
             if (terrain[x, y].GetComponent<Hexagon>().Properties.isDry && terrain[x, y].GetComponent<Hexagon>().Properties.ReliefType == 0)
-                terrain[x, y].GetComponent<Hexagon>().Properties.ReliefType = (EReliefType)(mountainHeight - 1);
-            mountainHeight = (int)Mathf.Floor(mountainHeight - mountainWidth * Random.Range(0.0f, mountainHeight));
+                terrain[x, y].GetComponent<Hexagon>().Properties.ReliefType = (EReliefType)((int)mountainHeight);
+
+            mountainHeight -= Random.Range(0.0f, 4.0f) / Mathf.Pow(mountainWidthC, 1.5f);
+            if (mountainHeight < 0) return;
+            if (Random.Range(0.0f, 1.0f) < Mathf.Pow(0.5f, 1 / mountainWidthC)) return;
             for (int k = 0; k < 6; k++)
             {
                 int _x = 0, _y = 0;
@@ -96,7 +97,7 @@ namespace Assets.Maps.Generation
             }
         }
 
-        void MountainGeneration(int x, int y, int sharpnessC, float mountainWidthC, int length, float sinuosityC)
+        void MountainGeneration(int x, int y, float sharpnessC, float mountainWidthC, int length, float sinuosityC)
         {
 
 
@@ -108,7 +109,7 @@ namespace Assets.Maps.Generation
             for (int i = 0; i < length; i++)
             {
                 if (terrain[x, y].GetComponent<Hexagon>().Properties.isDry && terrain[x, y].GetComponent<Hexagon>().Properties.ReliefType == 0)
-                    terrain[x, y].GetComponent<Hexagon>().Properties.ReliefType = (EReliefType)(sharpnessC - 1);
+                    terrain[x, y].GetComponent<Hexagon>().Properties.ReliefType = (EReliefType)((int)sharpnessC);
 
                 direct = Mathf.Repeat(6.0f + (Random.Range(0.0f, 6.0f) - 3.0f) * sinuosityC + direct, 6.0f);
                 int x_ = 0, y_ = 0;
@@ -367,13 +368,13 @@ namespace Assets.Maps.Generation
             {
                 int _x = Random.Range(0, width);
                 int _y = Random.Range(0, height);
-                MountainGeneration(_x, _y, Random.Range(3, 5), Random.Range(0.0f, 0.5f), Random.Range(120, 180), Random.Range(0.05f, 0.12f));
+                MountainGeneration(_x, _y, Random.Range(4.0f, 5.0f), Random.Range(1.5f, 3.0f), Random.Range(120, 180), Random.Range(0.05f, 0.12f));
             }
             for (int k = 0; k < 200; k++)
             {
                 int _x = Random.Range(0, width);
                 int _y = Random.Range(0, height);
-                MountainGeneration(_x, _y, Random.Range(1, 3), Random.Range(0.0f, 0.7f), Random.Range(1, 10), Random.Range(0.5f, 0.2f));
+                MountainGeneration(_x, _y, Random.Range(1.0f, 4.0f), Random.Range(0.25f, 2.0f), Random.Range(1, 10), Random.Range(0.5f, 0.2f));
             }
 
             for (int i = 0; i < height; i++)
