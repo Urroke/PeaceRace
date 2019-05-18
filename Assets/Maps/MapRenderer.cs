@@ -4,8 +4,7 @@ namespace Assets.Maps
 {
     public class MapRenderer : MonoBehaviour
     {
-
-        void render(Map map)
+        public void Render(Map map)
         {
             throw new System.NotImplementedException();
         }

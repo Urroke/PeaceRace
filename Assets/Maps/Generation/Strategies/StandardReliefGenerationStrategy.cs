@@ -2,9 +2,9 @@
 
 namespace Assets.Maps.Generation.Strategies
 {
-    public class StandardTerrainGenerationStrategy : TerrainGenerationStrategy
+    public class StandardReliefGenerationStrategy : ReliefGenerationStrategy
     {
-        public override Map Generate(Map map, MapGenerator.TerrainGenerationOptions options)
+        public override Map Generate(Map map, MapGenerator.ReliefGenerationOptions options)
         {
             throw new System.NotImplementedException();
         }
