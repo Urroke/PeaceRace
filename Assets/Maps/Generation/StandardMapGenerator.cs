@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Bases;
+using Assets.Terrain;
+using Assets.Terrain.Enums;
 using JetBrains.Annotations;
+using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Assets
+namespace Assets.Maps.Generation
 {
     [UsedImplicitly]
     public class StandardMapGenerator : MonoBehaviour
     {
-        [Serializable]
-        public class ArrayGameObjects
-        {
-            public GameObject[] arrayGameObjects;
-        }
 
         [Serializable]
         public struct GenerationType
@@ -31,7 +30,6 @@ namespace Assets
         [SerializeField] public GenerationType continent, island;
         public GameObject river;
         [SerializeField]
-        public ArrayGameObjects[] mountains;
         private int[] hexNeighborEvenX = { 0, 1, 0, -1, -1, -1 };
         private int[] hexNeighborEvenY = { 1, 0, -1, -1, 0, 1 };
         private int[] hexNeighborOddX = { 1, 1, 1, 0, -1, 0 };
@@ -46,22 +44,15 @@ namespace Assets
         public float mountainWidth;
         public int width;
         public Sprite[] rivers;
-        public Sprite[] Gexes;
         public GameObject Gex;
         private GameObject[,] terrain;
-        private GameObject[,] mountTerrain;
-        private bool[,] isDry;
         private float[] climatBariers = { -20f, -6f, 4f, 17f, 32f, 40f, 45f };
         void putGex(int x, int y, GameObject Gex)
         {
             Gex.transform.position = new Vector3(gexConst * ((x % width) + 0.5f * (y % 2)), 0.75f * (y % height), 0);
             terrain[x, y] = Gex;
         }
-        void putMountain(int x, int y, GameObject mount)
-        {
-            mount.transform.position = new Vector3(gexConst * ((x % width) + 0.5f * (y % 2)), 0.75f * (y % height), -2);
-            mountTerrain[x, y] = mount;
-        }
+
         void GetHexNeighbor(int neighbor, int x, int y, ref int x_, ref int y_)
         {
             if (y % 2 == 0)
@@ -76,9 +67,9 @@ namespace Assets
             }
         }
 
-        int TemperatureDistribution(float x, float y, float error)
+        int TemperatureDistribution(float x, float y, float error, ref float value)
         {
-            float value = 130 * Mathf.Exp(-0.00008f * y * y) - 90 + 1.7f * Mathf.Sin(x / 20)
+            value = 130 * Mathf.Exp(-0.00008f * y * y) - 90 + 1.7f * Mathf.Sin(x / 20)
                                                                   + 1.2f * Mathf.Sin(x / 10) + 0.9f * Mathf.Sin(x / 25) +
                                                                   2.2f * Mathf.Sin(x / 15) + Random.Range(-error, error);
             for (int i = 0; i < climatBariers.Length; i++)
@@ -91,8 +82,8 @@ namespace Assets
         {
             if (mountainHeight == 0)
                 return;
-            if (isDry[x, y] && mountTerrain[x, y] == null)
-                putMountain(x, y, Instantiate(mountains[mountainHeight - 1].arrayGameObjects[terrain[x, y].GetComponent<HexesProp>().ClimatZone - 1], transform.position, Quaternion.identity));
+            if (terrain[x, y].GetComponent<Hexagon>().Properties.isDry && terrain[x, y].GetComponent<Hexagon>().Properties.ReliefType == 0)
+                terrain[x, y].GetComponent<Hexagon>().Properties.ReliefType = (EReliefType)(mountainHeight - 1);
             mountainHeight = (int)Mathf.Floor(mountainHeight - mountainWidth * Random.Range(0.0f, mountainHeight));
             for (int k = 0; k < 6; k++)
             {
@@ -100,7 +91,7 @@ namespace Assets
                 GetHexNeighbor(k, x, y, ref _x, ref _y);
                 _x = (width + _x) % width;
                 _y = (height + _y) % height;
-                if (isDry[_x, _y] && mountTerrain[_x, _y] == null)
+                if (terrain[_x, _y].GetComponent<Hexagon>().Properties.isDry && terrain[_x, _y].GetComponent<Hexagon>().Properties.ReliefType == 0)
                     distribute(_x, _y, mountainHeight, mountainWidthC);
             }
         }
@@ -116,17 +107,15 @@ namespace Assets
             yStack.Add(y);
             for (int i = 0; i < length; i++)
             {
-                if (isDry[x, y] && mountTerrain[x, y] == null)
-                {
-                    putMountain(x, y, Instantiate(mountains[sharpnessC - 1].arrayGameObjects[terrain[x, y].GetComponent<HexesProp>().ClimatZone - 1], transform.position, Quaternion.identity));
-                }
+                if (terrain[x, y].GetComponent<Hexagon>().Properties.isDry && terrain[x, y].GetComponent<Hexagon>().Properties.ReliefType == 0)
+                    terrain[x, y].GetComponent<Hexagon>().Properties.ReliefType = (EReliefType)(sharpnessC - 1);
 
                 direct = Mathf.Repeat(6.0f + (Random.Range(0.0f, 6.0f) - 3.0f) * sinuosityC + direct, 6.0f);
                 int x_ = 0, y_ = 0;
                 GetHexNeighbor((int)Mathf.Floor(direct), x, y, ref x_, ref y_);
                 x_ = (width + x_) % width;
                 y_ = (height + y_) % height;
-                if (isDry[x_, y_] && mountTerrain[x_, y_] == null)
+                if (terrain[x_, y_].GetComponent<Hexagon>().Properties.isDry && terrain[x_, y_].GetComponent<Hexagon>().Properties.ReliefType == 0)
                 {
                     xStack.Add(x_);
                     yStack.Add(y_);
@@ -145,15 +134,10 @@ namespace Assets
             for (int i = 0; i < width; i++)
                 for (int j = 0; j < height; j++)
                 {
-                    int index = TemperatureDistribution((i * 2 - width) * 100f / width, (j * 2 - height) * 100f / height, clarityBoundariesC);
-                    if (isDry[i, j])
-                    {
-                        if (index == 0) index++;
-                        terrain[i, j].GetComponent<SpriteRenderer>().sprite =
-                            Gexes[index + 1];
-                        terrain[i, j].GetComponent<HexesProp>().ClimatZone = index;
-                    }
-                    else if (index == 0) terrain[i, j].GetComponent<SpriteRenderer>().sprite = Gexes[1];
+                    float temperature = 0.0f;
+                    int index = TemperatureDistribution((i * 2 - width) * 100f / width, (j * 2 - height) * 100f / height, clarityBoundariesC,ref temperature);
+                    terrain[i, j].GetComponent<Hexagon>().Properties.LandType = (EClimatType)(index);
+                    terrain[i, j].GetComponent<Hexagon>().Properties.Temperature = temperature;
                 }
         }
 
@@ -179,7 +163,7 @@ namespace Assets
             int bend = 1;
             direct = pi * Random.Range(0, 6) / 3 + pi / 6;
             initPosition = terrain[x, y].transform.position + new Vector3(0, 0, -1);
-            terrain[x, y].GetComponent<SpriteRenderer>().sprite = Gexes[2];
+            terrain[x, y].GetComponent<SpriteRenderer>().sprite = null;
             initPosition += new Vector3(Mathf.Cos(direct + ofset), Mathf.Sin(direct + ofset), 0) * gexConst / 2;
             oldDirect = direct;
             int collision = 3;
@@ -191,8 +175,8 @@ namespace Assets
                     neighborHexPosition = initPosition +
                                           new Vector3(Mathf.Cos(direct + (pi / 2) * k), Mathf.Sin(direct + (pi / 2) * k), 0) * (gexConst + (1 - Mathf.Abs(k)) * (1.5f - gexConst)) / 2;
                     GetHexIndex(neighborHexPosition.x, neighborHexPosition.y, ref _x, ref _y);
-                    if (isDry[_x, _y])
-                        terrain[_x, _y].GetComponent<SpriteRenderer>().sprite = Gexes[2];
+                    if (terrain[_x, _y].GetComponent<Hexagon>().Properties.isDry)
+                        terrain[_x, _y].GetComponent<SpriteRenderer>().sprite = null;
                     else
 
                         waterReached = true;
@@ -234,7 +218,7 @@ namespace Assets
                     neighborHexPosition = initPosition +
                                           new Vector3(Mathf.Cos(direct + (pi / 2) * k), Mathf.Sin(direct + (pi / 2) * k), 0) * (gexConst + (1 - Mathf.Abs(k)) * (1.5f - gexConst)) / 2;
                     GetHexIndex(neighborHexPosition.x, neighborHexPosition.y, ref _x, ref _y);
-                    if (terrain[_x, _y].GetComponent<SpriteRenderer>().sprite == Gexes[2])
+                    if (terrain[_x, _y].GetComponent<SpriteRenderer>().sprite == null)
                         confluence++;
                 }
 
@@ -265,7 +249,7 @@ namespace Assets
                     x_ = (width + x + hexNeighborOddX[k]) % width;
                     y_ = (height + y + hexNeighborOddY[k]) % height;
                 }
-                if (isDry[x_, y_]) res++;
+                if (terrain[x_, y_].GetComponent<Hexagon>().Properties.isDry) res++;
             }
 
             return res;
@@ -277,18 +261,16 @@ namespace Assets
             {
                 for (int i = 0; i < width; i++)
                     for (int j = 0; j < height; j++)
-                        if (!isDry[i, j])
+                        if (!terrain[i, j].GetComponent<Hexagon>().Properties.isDry)
                         {
                             int neighbor = GetDryNeighbor(i, j);
                             if (neighbor >= initSuperiority)
                                 if (Random.Range(0.0f, 1.0f) < 1.0 - Mathf.Pow(1.0f - smoothingC, neighbor - initSuperiority))
-                                {
-                                    isDry[i, j] = true;
-                                    terrain[i, j].GetComponent<SpriteRenderer>().sprite = Gexes[1];
-                                }
+                                    terrain[i, j].GetComponent<Hexagon>().Properties.isDry = true;
                         }
             }
         }
+
         private void EarthGenerate(GenerationType type)
         {
             float distributionC_ = type.distributionC;
@@ -332,32 +314,28 @@ namespace Assets
             }
 
             for (int i = 0; i < xStack.Count; i++)
-            {
-                terrain[xStack[i], yStack[i]].GetComponent<SpriteRenderer>().sprite = Gexes[1];
-                isDry[xStack[i], yStack[i]] = true;
-            }
+                terrain[xStack[i], yStack[i]].GetComponent<Hexagon>().Properties.isDry = true;
         }
 
 
 
         void Start()
         {
-            
-            
-            mountTerrain = new GameObject[width, height];
             int count = 0;
             GenerationType continent_ = continent;
             GenerationType island_ = island;
             GenerationType smallIsland = island_;
             terrain = new GameObject[width, height];
-            isDry = new bool[width, height];
             for (int i = 0; i < height; i++)
                 for (int j = 0; j < width; j++)
                 {
                     putGex(j, i, Instantiate(Gex));
-                    isDry[j, i] = false;
+                    Gex.GetComponent<Hexagon>().Properties.isDry = false;
+                    Gex.GetComponent<Hexagon>().Properties.ReliefType = 0;
                 }
+
             EarthGenerate(continent_);
+
             for (int k = 0; k < 8; k++)
             {
                 island_.x = Random.Range(width / 3, width);
@@ -381,7 +359,7 @@ namespace Assets
             {
                 int _x = Random.Range(width / 3, width);
                 int _y = Random.Range(0, height);
-                if (isDry[_x, _y])
+                if (terrain[_x, _y].GetComponent<Hexagon>().Properties.isDry)
                     MakeRiver(_x, _y, directness, bending);
             }
             ClimatAreaGenerate(clarityBoundaries);
@@ -398,11 +376,9 @@ namespace Assets
                 MountainGeneration(_x, _y, Random.Range(1, 3), Random.Range(0.0f, 0.7f), Random.Range(1, 10), Random.Range(0.5f, 0.2f));
             }
 
-
-
-
-
-
+            for (int i = 0; i < height; i++)
+            for (int j = 0; j < width; j++)
+                terrain[j, i].GetComponent<Hexagon>().Draw();
         }
 
         void Update()

@@ -1,15 +1,22 @@
 ﻿using System;
-using UnityEngine;
-using System.Collections;
 using Assets.Terrain;
 
-[Serializable]
-public class Map
+namespace Assets.Maps
 {
-    public int width;
-    public int height;
+    [Serializable]
+    public class Map
+    {
+        public int Width { get; }
+        public int Height { get; }
 
-    public Hexagon[,] terrain;
+        public Hexagon[,] Terrain;
 
+        public Map(int width, int height)
+        {
+            Width = width;
+            Height = height;
+            Terrain = new Hexagon[width,height];
+        }
 
+    }
 }

@@ -1,22 +1,25 @@
 ﻿using UnityEngine;
 
-public class HexesProp : MonoBehaviour
+namespace Assets.Bases
 {
-    private int climatZone;
-
-    public int ClimatZone
+    public class HexesProp : MonoBehaviour
     {
-        get => climatZone;
-        set => climatZone = value;
-    }
+        private int climatZone;
 
-    void Start()
-    {
+        public int ClimatZone
+        {
+            get => climatZone;
+            set => climatZone = value;
+        }
+
+        void Start()
+        {
         
-    }
+        }
 
-    void Update()
-    {
+        void Update()
+        {
         
+        }
     }
 }

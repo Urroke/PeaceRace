@@ -1,11 +1,23 @@
-﻿namespace Assets.Terrain
+﻿namespace Assets.Terrain.Enums
 {
-    public enum ELandType
+    public enum EClimatType
     {
-        Mountain,
+        Polar = 0,
+        Arctic = 1,
+        SubArctic = 2,
+        Temperate = 3,
+        SubTropic = 4,
+        Tropic = 5,
+        Equatorial = 6
+    }
+
+    public enum EReliefType
+    {
         Plain,
-        Hill,
-        Tundra,
-        Water,
+        LowerHill,
+        HighHill,
+        LowerMountain,
+        HighMountain,
+        Cleft
     }
 }

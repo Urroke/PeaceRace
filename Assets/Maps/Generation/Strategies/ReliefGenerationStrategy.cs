@@ -1,4 +1,4 @@
-﻿namespace Assets.Maps.Strategies
+﻿namespace Assets.Maps.Generation.Strategies
 {
     public class ReliefGenerationStrategy
     {

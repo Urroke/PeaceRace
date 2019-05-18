@@ -8,17 +8,25 @@ namespace Assets.Terrain
 {
     public class Hexagon : MonoBehaviour
     {
+        [SerializeField] private GameObject Relief;
+        [SerializeField] private GameObject Flore;
+
+        [SerializeField] private Sprite[] reliefs;
+        [SerializeField] private Sprite[] whaterZones;
+        [SerializeField] private Sprite[] climatZone;
+        
         [Serializable]
         public struct HexagonProperties
         {
             public Placement Placement;
             public float Fertility;
-            public ELandType LandType;
+            public EClimatType LandType;
+            public EReliefType ReliefType;
             public List<Unit.Unit> Standers;
             public float Temperature;
             public float MoveCost;
             public Dictionary<HexagonSides, GameObject> Sides;
-
+            public bool isDry;
         }
 
         public HexagonProperties Properties;
@@ -35,7 +43,7 @@ namespace Assets.Terrain
             set => Properties.Fertility = value;
         }
 
-        public ELandType LandType
+        public EClimatType LandType
         {
             get => Properties.LandType;
             set => Properties.LandType = value;
@@ -58,8 +66,20 @@ namespace Assets.Terrain
             set => Properties.MoveCost = value;
         }
 
+        public void Draw()
+        {
+            if (Properties.isDry)
+                gameObject.GetComponent<SpriteRenderer>().sprite = climatZone[(int)Properties.LandType];
+            else
+            {
+                if (Properties.LandType == 0) gameObject.GetComponent<SpriteRenderer>().sprite = whaterZones[0];
+                else gameObject.GetComponent<SpriteRenderer>().sprite = whaterZones[1];
+            }
 
-        // Use this for initialization
+            if (Properties.ReliefType != 0)
+                Relief.GetComponent<SpriteRenderer>().sprite = reliefs[(int)Properties.ReliefType];
+        }
+
         void Start()
         {
             Properties = new HexagonProperties

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2149259544543638436}
   - component: {fileID: 5708456521391806255}
-  - component: {fileID: 5086462883331841241}
+  - component: {fileID: 3118067865031604973}
   m_Layer: 0
   m_Name: "\u043E\u043A\u0435\u0430\u043D"
   m_TagString: Untagged
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5086462883331841241
+--- !u!114 &3118067865031604973
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,6 +89,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8598308757206043810}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff3ed037068c9d841b67babf874ddfd0, type: 3}
+  m_Script: {fileID: 11500000, guid: 45803f430a5aea745bffa2728fab7c5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Properties:
+    Fertility: 0
+    LandType: 0
+    Standers: []
+    Temperature: 0
+    MoveCost: 0
+    isDry: 0

@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -156,7 +157,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32aa35be96c95fe4d8aec5abe008943c, type: 3}
+  m_Script: {fileID: 11500000, guid: 854f32389efccaf46bdb93f823114a66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   continent:
@@ -213,7 +214,6 @@ MonoBehaviour:
   directness: 0.95
   clarityBoundaries: 2
   bending: 0
-  sinuicity: 0.1
   mountainWidth: 0.5
   width: 256
   rivers:
@@ -288,6 +288,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e66af5b9cf9759499bdda612e767f79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Generator: {fileID: 0}
 --- !u!1001 &3361281482471229338
 PrefabInstance:
   m_ObjectHideFlags: 0
