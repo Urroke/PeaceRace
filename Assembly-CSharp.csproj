@@ -10,8 +10,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{FCAF46A3-F7B2-1D8E-CDA2-ED378E4E41C9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -65,17 +64,24 @@
   <ItemGroup>
     <Compile Include="Assets\Bases\HexesProp.cs" />
     <Compile Include="Assets\Bases\Placement.cs" />
-    <Compile Include="Assets\Maps\BaseGenerator.cs" />
+    <Compile Include="Assets\GameCore.cs" />
+    <Compile Include="Assets\GeneratorEdiorMode.cs" />
+    <Compile Include="Assets\Maps\Generation\BaseGenerator.cs" />
+    <Compile Include="Assets\Maps\Generation\StandardMapGenerator.cs" />
+    <Compile Include="Assets\Maps\Generation\Strategies\BaseGenerationStrategy.cs" />
+    <Compile Include="Assets\Maps\Generation\Strategies\ReliefGenerationStrategy.cs" />
+    <Compile Include="Assets\Maps\Generation\Strategies\ResourceGenerationStrategy.cs" />
+    <Compile Include="Assets\Maps\Generation\Strategies\StandardTerrainGenerationStrategy.cs" />
+    <Compile Include="Assets\Maps\Generation\Strategies\StandartTerrainGenerationStrategy.cs" />
+    <Compile Include="Assets\Maps\Generation\Strategies\TerrainGenerationStrategy.cs" />
     <Compile Include="Assets\Maps\Map.cs" />
     <Compile Include="Assets\Maps\MapRenderer.cs" />
     <Compile Include="Assets\Maps\MapSaverLoader.cs" />
-    <Compile Include="Assets\Maps\Strategies\ReliefGenerationStrategy.cs" />
-    <Compile Include="Assets\Maps\Strategies\ResourceGenerationStrategy.cs" />
-    <Compile Include="Assets\Maps\StandardMapGenerator.cs" />
-    <Compile Include="Assets\Maps\Strategies\TerrainGenerationStrategy.cs" />
+    <Compile Include="Assets\Maps\ResourceGenerationStrategy.cs" />
     <Compile Include="Assets\Terrain\Enums\ELandType.cs" />
     <Compile Include="Assets\Terrain\Enums\HexagonSides.cs" />
     <Compile Include="Assets\Terrain\Hexagon.cs" />
+    <Compile Include="Assets\Terrain\Placement.cs" />
     <Compile Include="Assets\Unit\Strategies\Bases\BaseMovementStrategy.cs" />
     <Compile Include="Assets\Unit\Strategies\GroundOnlyMovingStrategy.cs" />
     <Compile Include="Assets\Unit\Unit.cs" />
@@ -658,9 +664,6 @@
     <Reference Include="System.Xml.Serialization">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.2f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Assets\Maps\Generation\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
