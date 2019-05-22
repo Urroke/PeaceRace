@@ -82,20 +82,14 @@ namespace Assets.Terrain
 
         void Start()
         {
-            Properties = new HexagonProperties
-            {
-                Placement = null,
-                Standers = new List<Unit.Unit>(),
-                Sides = new Dictionary<HexagonSides, GameObject>()
-            };
-
+          
         }
 
-        // Update is called once per frame
         void Update()
         {
 
         }
+
     }
 }
 

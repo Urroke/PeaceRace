@@ -179,58 +179,21 @@ MonoBehaviour:
     rangeJump: 0
     errorJump: 0
   river: {fileID: 2434090778262661202, guid: 0b8f9c7f7f7fbb040bcfbc62f18d5ce1, type: 3}
-  mountains:
-  - arrayGameObjects:
-    - {fileID: 9132776556335693713, guid: fa33a1e6ef566224b99377847efc399c, type: 3}
-    - {fileID: 8686243149337532261, guid: b141c5bbe08e89947b82fbc637e94307, type: 3}
-    - {fileID: 2071225071757749870, guid: dca84bc797e1e5a41a231f6809a8539f, type: 3}
-    - {fileID: 2071225071757749870, guid: dca84bc797e1e5a41a231f6809a8539f, type: 3}
-    - {fileID: 8686243149337532261, guid: b141c5bbe08e89947b82fbc637e94307, type: 3}
-    - {fileID: 2259281590478754355, guid: 56a21a3df348dad489866ab5331087ce, type: 3}
-  - arrayGameObjects:
-    - {fileID: 2268420345760632775, guid: 4cac30258e3414d47bfaa98df133cbd4, type: 3}
-    - {fileID: 7127780713964697061, guid: 6a757f8a81282b848a794dd49e069f60, type: 3}
-    - {fileID: 561648476927165676, guid: 4f4c5aaa8bc748f4fba0ed06f599b4ab, type: 3}
-    - {fileID: 561648476927165676, guid: 4f4c5aaa8bc748f4fba0ed06f599b4ab, type: 3}
-    - {fileID: 7127780713964697061, guid: 6a757f8a81282b848a794dd49e069f60, type: 3}
-    - {fileID: 2291335191979304036, guid: a1522a3712a383941bf9487ee64d0533, type: 3}
-  - arrayGameObjects:
-    - {fileID: 2010951375300345495, guid: 1f8576f418da1f945890c229a2b42501, type: 3}
-    - {fileID: 3403353900721369457, guid: 76854e06ea725d64d8d0868483434e2a, type: 3}
-    - {fileID: 7249726967043656013, guid: aab4ce33a8e0a9c47941a38ddbc8d3a9, type: 3}
-    - {fileID: 7249726967043656013, guid: aab4ce33a8e0a9c47941a38ddbc8d3a9, type: 3}
-    - {fileID: 3403353900721369457, guid: 76854e06ea725d64d8d0868483434e2a, type: 3}
-    - {fileID: 3855390046646151889, guid: 30394f88944e24e4f9c97d14b344c02b, type: 3}
-  - arrayGameObjects:
-    - {fileID: 5571416022810369249, guid: b71f5c31e59804a4287a7f099cce87d5, type: 3}
-    - {fileID: 1673893876537917040, guid: d925c01e7bdebef46ab5697401b5c2b5, type: 3}
-    - {fileID: 1673893876537917040, guid: d925c01e7bdebef46ab5697401b5c2b5, type: 3}
-    - {fileID: 1673893876537917040, guid: d925c01e7bdebef46ab5697401b5c2b5, type: 3}
-    - {fileID: 1673893876537917040, guid: d925c01e7bdebef46ab5697401b5c2b5, type: 3}
-    - {fileID: 1673893876537917040, guid: d925c01e7bdebef46ab5697401b5c2b5, type: 3}
+  hexNeighborEvenX: 000000000100000000000000ffffffffffffffffffffffff
   height: 128
   smothingDepth: 1
   smothingStep: 1
   directness: 0.95
   clarityBoundaries: 2
   bending: 0
-  mountainWidth: 0.5
+  mountainWidth: 20
   width: 256
   rivers:
   - {fileID: 21300000, guid: 4703952e6dd78db4c8f833543425c194, type: 3}
   - {fileID: 21300000, guid: 7fee36b4fad7ffa439cd6de6fed29c08, type: 3}
   - {fileID: 21300000, guid: 24de4f6cdf16a224c95cb0527db4478c, type: 3}
   - {fileID: 21300000, guid: d5e196fef9c0b4b468af91ca1508a188, type: 3}
-  Gexes:
-  - {fileID: 21300000, guid: 3e2a470584681734688da2e5b01e7353, type: 3}
-  - {fileID: 21300000, guid: 0ee543c7c5240b341980d3829bf290b6, type: 3}
-  - {fileID: 21300000, guid: b1f139cee171c3f4c807400f383f79e5, type: 3}
-  - {fileID: 21300000, guid: 07b5106319eb92747a028d397322f036, type: 3}
-  - {fileID: 21300000, guid: 0de3989033481d441897a27c1a40a2dd, type: 3}
-  - {fileID: 21300000, guid: af25a3ca3db2a674583edf2853295668, type: 3}
-  - {fileID: 21300000, guid: cbc306832277b3146bc0dfe5117ab823, type: 3}
-  - {fileID: 21300000, guid: ab7076a63bbf5c949a85a4e639b5404c, type: 3}
-  Gex: {fileID: 8598308757206043810, guid: 9e9196dd5c0642c449a4bd24607048ca, type: 3}
+  Gex: {fileID: 2261510331854881422, guid: 2cbf02ec79603db4ba90bb14192c5b94, type: 3}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0

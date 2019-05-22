@@ -98,6 +98,7 @@ MonoBehaviour:
   Flore: {fileID: 3049516792298297675}
   reliefs:
   - {fileID: 21300000, guid: 58d27fbe5082d35488fe124ca73d0a23, type: 3}
+  - {fileID: 21300000, guid: 58d27fbe5082d35488fe124ca73d0a23, type: 3}
   - {fileID: 21300000, guid: 93798419a9a77624db0c01ea972f3738, type: 3}
   - {fileID: 21300000, guid: f743ba13b6c215c4d800553c0d3c4eb3, type: 3}
   - {fileID: 21300000, guid: 8f9dc5377635d744ba1ab1dddd7784c5, type: 3}
