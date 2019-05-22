@@ -21,6 +21,28 @@ namespace Assets.Maps.Generation.Strategies
         private int[] hexNeighborOddY = { 1, 0, -1, -1, 0, 1 };
         private const float gexConst = 0.866f;
 
+        int GetDryNeighbor(int x, int y)
+        {
+            int res = 0;
+            for (int k = 0; k < 6; k++)
+            {
+                int x_, y_;
+                if (y % 2 == 0)
+                {
+                    x_ = (map.width + x + hexNeighborEvenX[k]) % map.width;
+                    y_ = (map.height + y + hexNeighborEvenY[k]) % map.height;
+                }
+                else
+                {
+                    x_ = (map.width + x + hexNeighborOddX[k]) % map.width;
+                    y_ = (map.height + y + hexNeighborOddY[k]) % map.height;
+                }
+                if (map.terrain[x_, y_].Properties.isDry) res++;
+            }
+
+            return res;
+        }
+
         void GetHexIndex(float x, float y, ref int _x, ref int _y)
         {
             x += 0.5f * gexConst;
@@ -50,17 +72,15 @@ namespace Assets.Maps.Generation.Strategies
             while (true)
             {
                 waterReached = false;
-                for (int k = -1; k < 2; k++)
+                for (int k = 0; k < 2; k++)
                 {
                     neighborHexPosition = initPosition +
-                                          new Vector3(Mathf.Cos(direct + (pi / 2) * k), Mathf.Sin(direct + (pi / 2) * k), 0) * (gexConst + (1 - Mathf.Abs(k)) * (1.5f - gexConst)) / 2;
+                                          new Vector3(Mathf.Cos(direct + (pi) * k - pi/2), Mathf.Sin(direct + (pi) * k - pi/2), 0) * (gexConst + (1 - Mathf.Abs(k)) * (1.5f - gexConst)) / 2;
                     GetHexIndex(neighborHexPosition.x, neighborHexPosition.y, ref _x, ref _y);
-                    if (map.terrain[_x, _y].GetComponent<Hexagon>().Properties.isDry)
-                        map.terrain[_x, _y].GetComponent<SpriteRenderer>().sprite = null;
+                    if (map.terrain[_x, _y].Properties.isDry)
+                        map.terrain[_x, _y].Properties.river[(int)(3.0f*(direct + (pi) * k - pi / 2 + 2*pi) /(pi))] = true;
                     else
-
                         waterReached = true;
-
                 }
 
                 if (waterReached) break;
@@ -98,12 +118,10 @@ namespace Assets.Maps.Generation.Strategies
                     neighborHexPosition = initPosition +
                                           new Vector3(Mathf.Cos(direct + (pi / 2) * k), Mathf.Sin(direct + (pi / 2) * k), 0) * (gexConst + (1 - Mathf.Abs(k)) * (1.5f - gexConst)) / 2;
                     GetHexIndex(neighborHexPosition.x, neighborHexPosition.y, ref _x, ref _y);
-                    if (map.terrain[_x, _y].GetComponent<SpriteRenderer>().sprite == null)
+                    if (!map.terrain[_x, _y].Properties.IsRiver())
                         confluence++;
                 }
 
-                Instantiate(river, initPosition, Quaternion.Euler(new Vector3(0, 0, 180 * direct / pi)));
-                river.GetComponent<SpriteRenderer>().sprite = rivers[Random.Range(0, rivers.Length)];
                 direct = Mathf.Repeat(direct + 2 * pi, pi * 2);
 
 
@@ -117,14 +135,14 @@ namespace Assets.Maps.Generation.Strategies
         {
             for (int d = 0; d < degree; d++)
             {
-                for (int i = 0; i < width; i++)
-                    for (int j = 0; j < height; j++)
-                        if (!terrain[i, j].Properties.isDry)
+                for (int i = 0; i < map.width; i++)
+                    for (int j = 0; j < map.height; j++)
+                        if (!map.terrain[i, j].Properties.isDry)
                         {
                             int neighbor = GetDryNeighbor(i, j);
                             if (neighbor >= initSuperiority)
                                 if (Random.Range(0.0f, 1.0f) < 1.0 - Mathf.Pow(1.0f - smoothingC, neighbor - initSuperiority))
-                                    terrain[i, j].Properties.isDry = true;
+                                    map.terrain[i, j].Properties.isDry = true;
                         }
             }
         }
