@@ -20,4 +20,9 @@
         HighMountain,
         Cleft
     }
+
+    public enum MapType
+    {
+        her
+    };
 }

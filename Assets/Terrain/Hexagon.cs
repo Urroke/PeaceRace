@@ -10,6 +10,7 @@ namespace Assets.Terrain
     {
         [SerializeField] private GameObject Relief;
         [SerializeField] private GameObject Flore;
+        [SerializeField] private GameObject river;
 
         [SerializeField] private Sprite[] reliefs;
         [SerializeField] private Sprite[] whaterZones;
@@ -18,6 +19,7 @@ namespace Assets.Terrain
         [Serializable]
         public struct HexagonProperties
         {
+            public bool[] river;
             public Placement Placement;
             public float Fertility;
             public EClimatType LandType;
@@ -27,6 +29,7 @@ namespace Assets.Terrain
             public float MoveCost;
             public Dictionary<HexagonSides, GameObject> Sides;
             public bool isDry;
+            public bool IsRiver;
         }
 
         public HexagonProperties Properties;
@@ -82,7 +85,8 @@ namespace Assets.Terrain
 
         void Start()
         {
-          
+            Properties.river = new bool[6];
+            for(int i = 0;)
         }
 
         void Update()
