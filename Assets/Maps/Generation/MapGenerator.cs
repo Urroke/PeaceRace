@@ -1,70 +1,42 @@
-﻿using System;
-using Assets.Maps.Generation.Strategies;
+﻿using Assets.Maps.Generation.Strategies;
 using Assets.Maps.Generation.Strategies.Base;
+using JetBrains.Annotations;
 using UnityEngine;
+using static Assets.Common.Settings;
 
 namespace Assets.Maps.Generation
 {
     public class MapGenerator : MonoBehaviour
     {
-        [Serializable]
-        public struct TerrainGenerationOptions
-        {
-            public int x;
-            public int y;
-            public float distributionC;
-            public float distributionFriction;
-            public float coverageArea;
-            public int periodJump;
-            public int rangeJump;
-            public int errorJump;
-        }
-        [Serializable]
-        public struct ReliefGenerationOptions
-        {
-            public int field1;
-        }
-        [Serializable]
-        public struct ResourceGenerationOptions
-        {
-            public int field1;
-        }
 
-        [SerializeField]
-
-        private TerrainGenerationOptions terrainOptions;
-        [SerializeField]
-
-        private ReliefGenerationOptions reliefOptions;
-        [SerializeField]
-        private ResourceGenerationOptions resourceOptions;
-
-
-        public TerrainGenerationStrategy terrainStrategy;
-        public ReliefGenerationStrategy reliefStrategy;
-        public ResourceGenerationStrategy resourceStrategy;
+        public GeneratorOptions options;
+        public TerrainGenerationStrategy TerrainStrategy;
+        public ReliefGenerationStrategy ReliefStrategy;
+        public ResourceGenerationStrategy ResourceStrategy;
 
 
         public MapGenerator()
         {
-            terrainStrategy = new StandardTerrainGenerationStrategy();
-            reliefStrategy = new StandardReliefGenerationStrategy();
-            resourceStrategy = new StandardResourceGenerationStrategy();
+            TerrainStrategy = new StandardTerrainGenerationStrategy();
+            ReliefStrategy = new StandardReliefGenerationStrategy();
+            ResourceStrategy = new StandardResourceGenerationStrategy();
+            options = GeneratorOptions.LoadFromDisk();
         }
 
+        [UsedImplicitly]
         public MapGenerator(TerrainGenerationStrategy terrainStrategy, ReliefGenerationStrategy reliefStrategy, ResourceGenerationStrategy resourceStrategy)
         {
-            this.terrainStrategy = terrainStrategy;
-            this.reliefStrategy = reliefStrategy;
-            this.resourceStrategy = resourceStrategy;
+            TerrainStrategy = terrainStrategy;
+            ReliefStrategy = reliefStrategy;
+            ResourceStrategy = resourceStrategy;
         }
 
         public Map Generate(int width, int height)
         {
             var map = new Map(width, height);
-            map = terrainStrategy.Generate(map, terrainOptions);
-            map = reliefStrategy.Generate(map, reliefOptions);
-            map = resourceStrategy.Generate(map, resourceOptions);
+            map = TerrainStrategy.Generate(map, options.TerrainGenerationOptions);
+            map = ReliefStrategy.Generate(map, options.ReliefGenerationOptions);
+            map = ResourceStrategy.Generate(map, options.ResourceGenerationOptions);
             return map;
         }
 

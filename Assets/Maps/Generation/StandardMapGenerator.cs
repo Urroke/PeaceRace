@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Assets.Bases;
 using Assets.Terrain;
 using Assets.Terrain.Enums;
 using JetBrains.Annotations;
-using UnityEditor;
 using UnityEngine;
 using System.Collections;
+using static Assets.Common.Settings;
 using Random = UnityEngine.Random;
 
 namespace Assets.Maps.Generation
@@ -312,13 +311,11 @@ namespace Assets.Maps.Generation
                     }
 
                     if (!notChosen[x_, y_]) continue;
-                    if (distributionC_ > Random.Range(0.0f, 1.0f))
-                    {
-                        xStack.Add(x_);
-                        yStack.Add(y_);
-                        notChosen[x_, y_] = false;
-                        distributionC_ *= 1.0f - type.distributionFriction;
-                    }
+                    if (!(distributionC_ > Random.Range(0.0f, 1.0f))) continue;
+                    xStack.Add(x_);
+                    yStack.Add(y_);
+                    notChosen[x_, y_] = false;
+                    distributionC_ *= 1.0f - type.distributionFriction;
                 }
             }
 
@@ -337,6 +334,9 @@ namespace Assets.Maps.Generation
  
         void Start()
         {
+
+
+
             int count = 0;
             GenerationType continent_ = continent;
             GenerationType island_ = island;

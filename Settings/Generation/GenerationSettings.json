@@ -1,0 +1,18 @@
+{
+    "TerrainGenerationOptions": {
+        "x": 0,
+        "y": 0,
+        "distributionC": 0.0,
+        "distributionFriction": 0.0,
+        "coverageArea": 0.0,
+        "periodJump": 0,
+        "rangeJump": 0,
+        "errorJump": 0
+    },
+    "ReliefGenerationOptions": {
+        "field1": 0
+    },
+    "ResourceGenerationOptions": {
+        "field1": 0
+    }
+}
