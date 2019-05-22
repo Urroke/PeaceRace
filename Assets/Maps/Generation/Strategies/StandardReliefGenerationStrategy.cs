@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Assets.Maps.Generation.Options;
 using Assets.Maps.Generation.Strategies.Base;
 using Assets.Terrain.Enums;
 using UnityEngine;
@@ -7,6 +8,7 @@ namespace Assets.Maps.Generation.Strategies
 {
     public class StandardReliefGenerationStrategy : ReliefGenerationStrategy
     {
+
         private Map map;
 
         private int[] hexNeighborEvenX = { 0, 1, 0, -1, -1, -1 };
@@ -81,7 +83,7 @@ namespace Assets.Maps.Generation.Strategies
             }
         }
 
-        public override Map Generate(Map map, MapGenerator.ReliefGenerationOptions options)
+        public override Map Generate(Map map, ReliefGenerationOptions options)
         {
             this.map = map;
             return map;

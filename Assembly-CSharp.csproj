@@ -62,23 +62,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Bases\HexesProp.cs" />
     <Compile Include="Assets\Bases\Placement.cs" />
-    <Compile Include="Assets\Maps\Generation\BaseGenerator.cs" />
+    <Compile Include="Assets\Common\Settings.cs" />
+    <Compile Include="Assets\Maps\FileSystemSaverLoader.cs" />
     <Compile Include="Assets\Maps\Generation\MapGenerator.cs" />
+    <Compile Include="Assets\Maps\Generation\Options\ClimateGenerationOptions.cs" />
+    <Compile Include="Assets\Maps\Generation\Options\ReliefGenerationOptions.cs" />
+    <Compile Include="Assets\Maps\Generation\Options\ResourceGenerationOptions.cs" />
+    <Compile Include="Assets\Maps\Generation\Options\TerrainGenerationOptions.cs" />
     <Compile Include="Assets\Maps\Generation\StandardMapGenerator.cs" />
-    <Compile Include="Assets\Maps\Generation\Strategies\Base\ClimatGenerationStrategy.cs" />
+    <Compile Include="Assets\Maps\Generation\Strategies\Base\ClimateGenerationStrategy.cs" />
     <Compile Include="Assets\Maps\Generation\Strategies\Base\ReliefGenerationStrategy.cs" />
     <Compile Include="Assets\Maps\Generation\Strategies\Base\ResourceGenerationStrategy.cs" />
     <Compile Include="Assets\Maps\Generation\Strategies\Base\TerrainGenerationStrategy.cs" />
-    <Compile Include="Assets\Maps\Generation\Strategies\StandardClimatGenerationStrategy.cs" />
+    <Compile Include="Assets\Maps\Generation\Strategies\StandardClimateGenerationStrategy.cs" />
     <Compile Include="Assets\Maps\Generation\Strategies\StandardReliefGenerationStrategy.cs" />
     <Compile Include="Assets\Maps\Generation\Strategies\StandardResourceGenerationStrategy.cs" />
     <Compile Include="Assets\Maps\Generation\Strategies\StandardTerrainGenerationStrategy.cs" />
     <Compile Include="Assets\Maps\Initialize.cs" />
     <Compile Include="Assets\Maps\Map.cs" />
     <Compile Include="Assets\Maps\MapRenderer.cs" />
-    <Compile Include="Assets\Maps\MapSaverLoader.cs" />
     <Compile Include="Assets\Maps\ResourceGenerationStrategy.cs" />
     <Compile Include="Assets\Terrain\Enums\ELandType.cs" />
     <Compile Include="Assets\Terrain\Enums\HexagonSides.cs" />

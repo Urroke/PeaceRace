@@ -1,10 +1,11 @@
-﻿using Assets.Maps.Generation.Strategies.Base;
+﻿using Assets.Maps.Generation.Options;
+using Assets.Maps.Generation.Strategies.Base;
 using Assets.Terrain.Enums;
 using UnityEngine;
 
 namespace Assets.Maps.Generation.Strategies
 {
-    public class StandardClimatGenerationStrategy : ClimatGenerationStrategy
+    public class StandardClimateGenerationStrategy : ClimateGenerationStrategy
     {
         private Map map;
 
@@ -33,10 +34,12 @@ namespace Assets.Maps.Generation.Strategies
             }
         }
 
-        public override Map Generate(Map map, MapGenerator.ClimatGenerationOptions options)
+        public override Map Generate(Map map, ClimateGenerationOptions options)
         {
             this.map = map;
             return map;
         }
     }
+
+  
 }

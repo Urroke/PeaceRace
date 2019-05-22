@@ -26,7 +26,7 @@ namespace Assets.Common
             {
                 using (var stream = new StreamReader(DISK_PATH))
                 {
-                   return JsonUtility.FromJson<GeneratorOptions>(stream.ReadToEnd());
+                    return JsonUtility.FromJson<GeneratorOptions>(stream.ReadToEnd());
                 }
 
             }
@@ -34,13 +34,14 @@ namespace Assets.Common
             public TerrainGenerationOptions TerrainGenerationOptions;
             public ReliefGenerationOptions ReliefGenerationOptions;
             public ResourceGenerationOptions ResourceGenerationOptions;
-
+            public ClimateGenerationOptions ClimateGenerationOptions;
             public GeneratorOptions()
             {
                 TerrainGenerationOptions = new TerrainGenerationOptions();
                 ReliefGenerationOptions = new ReliefGenerationOptions();
-                ResourceGenerationOptions= new ResourceGenerationOptions();
-                
+                ResourceGenerationOptions = new ResourceGenerationOptions();
+                ClimateGenerationOptions = new ClimateGenerationOptions();
+
             }
 
 

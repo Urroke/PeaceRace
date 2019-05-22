@@ -1,7 +1,7 @@
-
 using System;
 using System.Collections.Generic;
 using System.Numerics;
+using Assets.Maps.Generation.Options;
 using Assets.Maps.Generation.Strategies.Base;
 using Assets.Terrain;
 using UnityEngine;
@@ -9,10 +9,12 @@ using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 
 
+
 namespace Assets.Maps.Generation.Strategies
 {
     public class StandardTerrainGenerationStrategy : TerrainGenerationStrategy
     {
+
 
         private Map map;
         private int[] hexNeighborEvenX = { 0, 1, 0, -1, -1, -1 };
@@ -203,7 +205,7 @@ namespace Assets.Maps.Generation.Strategies
             return map;
         }
 
-        public override Map Generate(Map map, MapGenerator.TerrainGenerationOptions options)
+        public override Map Generate(Map map, TerrainGenerationOptions options)
         {
             this.map = map;
             if (options.type == 0)
