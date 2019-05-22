@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Maps/Generation/Strategies/Base/ReliefGenerationStrategy.cs.meta
 guid: 51dde71a55386f3409d0ee4275b1f854
+=======
+guid: e2029c0bf4e1b2248acb43d679a89fdf
+>>>>>>> file-loader:Assets/Maps/Generation/Strategies/Base/ReliefGenerationStrategy.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

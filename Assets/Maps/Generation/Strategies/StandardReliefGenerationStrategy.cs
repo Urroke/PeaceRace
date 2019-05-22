@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Numerics;
-using UnityEngine;
-using Assets.Maps.Generation.Strategies;
+using System.Collections.Generic;
+using Assets.Maps.Generation.Strategies.Base;
 using Assets.Terrain.Enums;
+using UnityEngine;
 
-namespace Assets.Maps.Generation
+namespace Assets.Maps.Generation.Strategies
 {
     public class StandardReliefGenerationStrategy : ReliefGenerationStrategy
     {

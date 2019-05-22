@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Numerics;
 using Assets.Terrain;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -20,12 +19,11 @@ namespace Assets.Maps
             height = _height;
             terrain = new Hexagon[width, height];
             for (int i = 0; i < width; i++)
-            for (int j = 0; j < height; j++)
-            {
-                terrain[i, j] = new Hexagon();
-                terrain[i, j].Properties.isDry = false;
-                terrain[i, j].Properties.ReliefType = 0;
-            }
+                for (int j = 0; j < height; j++)
+                {
+                    terrain[i, j] = new Hexagon { Properties = { isDry = false, ReliefType = 0 } };
+                }
+
 
         }
 

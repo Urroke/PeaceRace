@@ -1,6 +1,6 @@
 ﻿using System;
 using Assets.Maps.Generation.Strategies;
-using Assets.Terrain;
+using Assets.Maps.Generation.Strategies.Base;
 using Assets.Terrain.Enums;
 using UnityEngine;
 

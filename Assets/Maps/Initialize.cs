@@ -1,27 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Assets.Maps;
-using Assets.Maps.Generation;
+﻿using Assets.Maps.Generation;
 using UnityEngine;
 
-public class Initialize : MonoBehaviour
+namespace Assets.Maps
 {
-    [SerializeField] private int width;
-    [SerializeField] private int height;
-
-    private MapGenerator gen;
-    [SerializeField]
-    private MapRenderer render;
-
-    void Start()
+    public class Initialize : MonoBehaviour
     {
-        gen = new MapGenerator();
-        render.render(gen.Generate(width, height));
-    }
+        [SerializeField] private int width;
+        [SerializeField] private int height;
 
-    // Update is called once per frame
-    void Update()
-    {
+        private MapGenerator gen;
+        [SerializeField]
+        private MapRenderer render;
+
+        void Start()
+        {
+            gen = new MapGenerator();
+            render.render(gen.Generate(width, height));
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
         
+        }
     }
 }

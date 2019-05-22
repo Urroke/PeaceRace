@@ -1,5 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 6e2f878c06581984a918f8aab78175d1
+=======
+<<<<<<< HEAD:Assets/Maps/Generation/Strategies/Base/ClimatGenerationStrategy.cs.meta
+guid: 6bb71d64077efc642be73f92f64bd2e3
+=======
+guid: e2d6f81d84620de409c81bb6fd6cf9bc
+>>>>>>> file-loader:Assets/Maps/Generation/Strategies/StandardReliefGenerationStrategy.cs.meta
+>>>>>>> file-loader
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

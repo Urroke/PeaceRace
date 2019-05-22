@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Assets.Bases;
 using Assets.Terrain;
 using Assets.Terrain.Enums;
 using JetBrains.Annotations;
-using UnityEditor;
 using UnityEngine;
 using System.Collections;
 using Random = UnityEngine.Random;

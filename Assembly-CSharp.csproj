@@ -10,7 +10,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{FCAF46A3-F7B2-1D8E-CDA2-ED378E4E41C9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -64,8 +65,6 @@
   <ItemGroup>
     <Compile Include="Assets\Bases\HexesProp.cs" />
     <Compile Include="Assets\Bases\Placement.cs" />
-    <Compile Include="Assets\GameCore.cs" />
-    <Compile Include="Assets\GeneratorEdiorMode.cs" />
     <Compile Include="Assets\Maps\Generation\BaseGenerator.cs" />
     <Compile Include="Assets\Maps\Generation\StandardMapGenerator.cs" />
     <Compile Include="Assets\Maps\Generation\Strategies\Base\ClimatGenerationStrategy.cs" />

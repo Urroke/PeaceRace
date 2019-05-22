@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Maps/Generation/Strategies/Base/ResourceGenerationStrategy.cs.meta
 guid: c06fa6389a5428547a43bc18ec93dbf0
+=======
+guid: ca7cd540efe61234fb9579869d6d2227
+>>>>>>> file-loader:Assets/Maps/Generation/Strategies/Base/ResourceGenerationStrategy.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

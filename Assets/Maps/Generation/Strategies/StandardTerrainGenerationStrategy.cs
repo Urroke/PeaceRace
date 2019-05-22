@@ -1,6 +1,8 @@
-﻿using System;
+
+using System;
 using System.Collections.Generic;
 using System.Numerics;
+using Assets.Maps.Generation.Strategies.Base;
 using Assets.Terrain;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -11,6 +13,7 @@ namespace Assets.Maps.Generation.Strategies
 {
     public class StandardTerrainGenerationStrategy : TerrainGenerationStrategy
     {
+
         private Map map;
         private int[] hexNeighborEvenX = { 0, 1, 0, -1, -1, -1 };
         private int[] hexNeighborEvenY = { 1, 0, -1, -1, 0, 1 };
@@ -115,14 +118,14 @@ namespace Assets.Maps.Generation.Strategies
             for (int d = 0; d < degree; d++)
             {
                 for (int i = 0; i < width; i++)
-                for (int j = 0; j < height; j++)
-                    if (!terrain[i, j].Properties.isDry)
-                    {
-                        int neighbor = GetDryNeighbor(i, j);
-                        if (neighbor >= initSuperiority)
-                            if (Random.Range(0.0f, 1.0f) < 1.0 - Mathf.Pow(1.0f - smoothingC, neighbor - initSuperiority))
-                                terrain[i, j].Properties.isDry = true;
-                    }
+                    for (int j = 0; j < height; j++)
+                        if (!terrain[i, j].Properties.isDry)
+                        {
+                            int neighbor = GetDryNeighbor(i, j);
+                            if (neighbor >= initSuperiority)
+                                if (Random.Range(0.0f, 1.0f) < 1.0 - Mathf.Pow(1.0f - smoothingC, neighbor - initSuperiority))
+                                    terrain[i, j].Properties.isDry = true;
+                        }
             }
         }
 
@@ -133,8 +136,8 @@ namespace Assets.Maps.Generation.Strategies
             bool[,] notChosen = new bool[map.width, map.height];
 
             for (int i = 0; i < map.width; i++)
-            for (int j = 0; j < map.height; j++)
-                notChosen[i, j] = true;
+                for (int j = 0; j < map.height; j++)
+                    notChosen[i, j] = true;
 
             xStack.Add(point.x);
             yStack.Add(point.y);
@@ -157,13 +160,11 @@ namespace Assets.Maps.Generation.Strategies
                     }
 
                     if (!notChosen[x_, y_]) continue;
-                    if (distributionC > Random.Range(0.0f, 1.0f))
-                    {
-                        xStack.Add(x_);
-                        yStack.Add(y_);
-                        notChosen[x_, y_] = false;
-                        distributionC *= 1.0f - distributionFriction;
-                    }
+                    if (!(distributionC > Random.Range(0.0f, 1.0f))) continue;
+                    xStack.Add(x_);
+                    yStack.Add(y_);
+                    notChosen[x_, y_] = false;
+                    distributionC *= 1.0f - distributionFriction;
                 }
             }
 
@@ -174,7 +175,7 @@ namespace Assets.Maps.Generation.Strategies
         private Map AddContinent(int risePoints, Vector2Int point, float procent)
         {
             int linearSize = (map.height + map.width) / 2;
-            int error = (int) ((float) linearSize * procent);
+            int error = (int)((float)linearSize * procent);
             for (int i = 0; i < risePoints; i++)
             {
                 EarthGenerate(point, 0.8f, 0.02f);

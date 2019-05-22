@@ -5,6 +5,7 @@ namespace Assets.Maps
 {
     public class MapRenderer : MonoBehaviour
     {
+
         private Map map;
         [SerializeField] private GameObject Gex;
 
