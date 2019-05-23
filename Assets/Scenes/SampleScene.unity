@@ -233,7 +233,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e66af5b9cf9759499bdda612e767f79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Generator: {fileID: 0}
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,6 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 458be5016c938eb4295dc2d9d8dd2c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Gex: {fileID: 2261510331854881422, guid: 2cbf02ec79603db4ba90bb14192c5b94, type: 3}
 --- !u!1001 &3361281482471229338
 PrefabInstance:
   m_ObjectHideFlags: 0

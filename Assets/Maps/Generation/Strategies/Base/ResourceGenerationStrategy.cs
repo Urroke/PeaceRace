@@ -1,8 +1,10 @@
 
-﻿namespace Assets.Maps.Generation.Strategies.Base
+﻿using Assets.Maps.Generation.Options;
+
+ namespace Assets.Maps.Generation.Strategies.Base
 {
     public abstract class ResourceGenerationStrategy
     {
-        public abstract Map Generate(Map map, MapGenerator.ResourceGenerationOptions options);
+        public abstract Map Generate(Map map, ResourceGenerationOptions options);
     }
 }

@@ -13,7 +13,7 @@ namespace Assets.Maps.Generation
         public TerrainGenerationStrategy TerrainStrategy;
         public ReliefGenerationStrategy ReliefStrategy;
         public ResourceGenerationStrategy ResourceStrategy;
-        public ClimateGenerationStrategy ClimateStrategy
+        public ClimateGenerationStrategy ClimateStrategy;
 
         public MapGenerator()
         {
@@ -35,8 +35,6 @@ namespace Assets.Maps.Generation
         {
             var map = new Map(width, height);
             map = TerrainStrategy.Generate(map, options.TerrainGenerationOptions);
-            map = ReliefStrategy.Generate(map, options.ReliefGenerationOptions);
-            map = ResourceStrategy.Generate(map, options.ResourceGenerationOptions);
             return map;
         }
 

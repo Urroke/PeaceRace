@@ -55,9 +55,10 @@ namespace Assets.Maps.Generation.Strategies
             _y = (_y + map.height) % map.height;
         }
 
-        void MakeRiver(int x, int y, float directnessC, float bendingC)
+        void MakeRiver(Vector2Int point, float directnessC, float bendingC)
         {
             float direct, oldDirect;
+            int counter = 0;
             float pi = 3.141592f;
             float ofset = pi / 2;
             Vector3 initPosition;
@@ -66,21 +67,31 @@ namespace Assets.Maps.Generation.Strategies
             bool waterReached = false;
             int bend = 1;
             direct = pi * Random.Range(0, 6) / 3 + pi / 6;
-            initPosition = map.terrain[x, y].transform.position + new Vector3(0, 0, -1);
-            map.terrain[x, y].GetComponent<SpriteRenderer>().sprite = null;
+            initPosition = new Vector3(gexConst * ((point.x % map.width) + 0.5f * (point.y % 2)), 0.75f * (point.y % map.height), 0);
+            map.terrain[_x, _y].Properties.river[(int)(3.0f * (direct + 2 * pi) / (pi))%6] = true;
             initPosition += new Vector3(Mathf.Cos(direct + ofset), Mathf.Sin(direct + ofset), 0) * gexConst / 2;
             oldDirect = direct;
             int collision = 3;
             while (true)
             {
                 waterReached = false;
-                for (int k = 0; k < 2; k++)
+                for (int k = -1; k < 2; k++)
                 {
                     neighborHexPosition = initPosition +
-                                          new Vector3(Mathf.Cos(direct + (pi) * k - pi/2), Mathf.Sin(direct + (pi) * k - pi/2), 0) * (gexConst + (1 - Mathf.Abs(k)) * (1.5f - gexConst)) / 2;
+                                          new Vector3(Mathf.Cos(direct + (pi/2) * k), Mathf.Sin(direct + (pi/2) * k), 0) * (gexConst + (1 - Mathf.Abs(k)) * (1.5f - gexConst)) / 2;
                     GetHexIndex(neighborHexPosition.x, neighborHexPosition.y, ref _x, ref _y);
                     if (map.terrain[_x, _y].Properties.isDry)
-                        map.terrain[_x, _y].Properties.river[(int)(3.0f*(direct + (pi) * k - pi / 2 + 2*pi) /(pi))] = true;
+                    {
+                        if (k != 0)
+                        {
+                            int index = ((int)((180 * (direct + (pi / 2) * k - pi / 2 - pi / 6 + pi*2) / pi) / 60)) % 6;
+                            map.terrain[_x, _y].Properties.river[index] = true;
+                            map.terrain[_x, _y].Properties.riverScale = 1.0f + ((float)counter)/100f;
+
+                            if (k == -1)                         
+                                map.terrain[_x, _y].Properties.needDrawRiver = true;
+                        }
+                    }
                     else
                         waterReached = true;
                 }
@@ -130,6 +141,7 @@ namespace Assets.Maps.Generation.Strategies
                 if (confluence == 3) collision--;
                 else collision = 3;
                 if (collision == 0) break;
+                counter++;
             }
         }
 
@@ -198,7 +210,7 @@ namespace Assets.Maps.Generation.Strategies
             int error = (int)((float)linearSize * procent);
             for (int i = 0; i < risePoints; i++)
             {
-                EarthGenerate(point, 0.8f, 0.02f);
+                EarthGenerate(point, 0.8f, 0.002f);
                 point.x += Random.Range(-error, error);
                 point.y += Random.Range(-error, error);
             }
@@ -208,8 +220,9 @@ namespace Assets.Maps.Generation.Strategies
         public override Map Generate(Map map, TerrainGenerationOptions options)
         {
             this.map = map;
-            if (options.type == 0)
-                AddContinent(3, map.GetRandomPoint(), 0.06f);
+                Vector2Int point = map.GetRandomPoint();
+                AddContinent(3, point, 0.06f);
+                MakeRiver(point, 0.8f, 0.0f);
             return map;
         }
     }

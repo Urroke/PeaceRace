@@ -21,7 +21,7 @@ namespace Assets.Maps
             for (int i = 0; i < width; i++)
                 for (int j = 0; j < height; j++)
                 {
-                    terrain[i, j] = new Hexagon { Properties = { isDry = false, ReliefType = 0 } };
+                    terrain[i, j] = new Hexagon { Properties = { isDry = false, ReliefType = 0 , river = new bool[6], needDrawRiver = false}};
                 }
 
 
